@@ -31,9 +31,13 @@ def validate_files(exercise: Path, config: dict) -> dict[str,list[Path]]:
             raise ValueError(f"missing required role: {required}")
     return resolved
 
-config=json.loads((EX/".meta/config.json").read_text())
-roles=validate_files(EX,config)
-assert roles["solution"][0].name=="rectangles.awk"
-assert roles["test"][0].name=="test-rectangles.bats"
-assert roles["example"][0].name=="example.awk"
-print("PASS: solution, test, example, and all declared files resolve inside rectangles")
+def main() -> None:
+    config=json.loads((EX/".meta/config.json").read_text())
+    roles=validate_files(EX,config)
+    assert roles["solution"][0].name=="rectangles.awk"
+    assert roles["test"][0].name=="test-rectangles.bats"
+    assert roles["example"][0].name=="example.awk"
+    print("PASS: solution, test, example, and all declared files resolve inside rectangles")
+
+if __name__ == "__main__":
+    main()
